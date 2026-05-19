@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quality Xerox – Fast Document Delivery at Your Doorstep</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+            playfair: ['Playfair Display', 'serif'],
+            inter: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e3a5f',
+              900: '#0f1d30',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { scroll-behavior: smooth; }
+
+    /* Hero Background Animation */
+    .hero-bg {
+      background: linear-gradient(135deg, #0f1d30 0%, #1e3a5f 40%, #2563eb 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(59,130,246,0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 30%, rgba(96,165,250,0.1) 0%, transparent 40%),
+                  radial-gradient(circle at 50% 80%, rgba(37,99,235,0.1) 0%, transparent 50%);
+      animation: heroPulse 8s ease-in-out infinite;
+    }
+    @keyframes heroPulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.05) rotate(2deg); }
+    }
+
+    /* Floating Documents Animation */
+    .floating-doc {
+      position: absolute;
+      opacity: 0.06;
+      animation: floatDoc linear infinite;
+    }
+    @keyframes floatDoc {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.06; }
+      90% { opacity: 0.06; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-left.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-right.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.85);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-scale.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Hero text animations */
+    .hero-fade-up {
+      animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-fade-up-delay-1 { animation-delay: 0.2s; }
+    .hero-fade-up-delay-2 { animation-delay: 0.4s; }
+    .hero-fade-up-delay-3 { animation-delay: 0.6s; }
+    .hero-fade-up-delay-4 { animation-delay: 0.8s; }
+
+    /* Slideshow */
+    .slideshow-container { position: relative; overflow: hidden; }
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: scale(1.05);
+    }
+    .slide.active-slide {
+      opacity: 1;
+      transform: scale(1);
+      position: relative;
+    }
+
+    /* Glowing Button */
+    .glow-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .glow-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(transparent, rgba(255,255,255,0.2), transparent 30%);
+      animation: glowRotate 3s linear infinite;
+    }
+    @keyframes glowRotate {
+      100% { transform: rotate(360deg); }
+    }
+    .glow-btn > span { position: relative; z-index: 1; }
+
+    /* Pulse ring */
+    .pulse-ring {
+      animation: pulseRing 2s ease-out infinite;
+    }
+    @keyframes pulseRing {
+      0% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4); }
+      100% { box-shadow: 0 0 0 20px rgba(37,99,235,0); }
+    }
+
+    /* Counter animation */
+    .counter-box {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Upload area */
+    .upload-zone {
+      border: 2px dashed #93c5fd;
+      transition: all 0.3s ease;
+    }
+    .upload-zone:hover, .upload-zone.dragover {
+      border-color: #2563eb;
+      background: rgba(37,99,235,0.05);
+      transform: scale(1.01);
+    }
+
+    /* WhatsApp floating */
+    .whatsapp-float {
+      animation: whatsappBounce 2s ease-in-out infinite;
+    }
+    @keyframes whatsappBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Delivery dash animation */
+    .dash-animate {
+      stroke-dasharray: 8 4;
+      animation: dashMove 1s linear infinite;
+    }
+    @keyframes dashMove {
+      100% { stroke-dashoffset: -12; }
+    }
+
+    /* Typing effect */
+    .typing-cursor::after {
+      content: '|';
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* Card hover lift */
+    .card-lift {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-lift:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -12px rgba(37,99,235,0.2);
+    }
+
+    /* Nav scroll effect */
+    .nav-scrolled {
+      background: rgba(15,29,48,0.95) !important;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+
+    /* Photo placeholder */
+    .photo-placeholder {
+      background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed #94a3b8;
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-placeholder::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+      animation: shimmer 2s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Toast */
+    .toast {
+      animation: toastIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .toast-out {
+      animation: toastOut 0.3s ease forwards;
+    }
+    @keyframes toastOut {
+      to { opacity: 0; transform: translateY(20px) scale(0.95); }
+    }
+
+    /* Marquee */
+    .marquee-track {
+      display: flex;
+      animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa, #3b82f6, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f1d30; }
+    ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+    /* Modal */
+    .modal-overlay {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-overlay.show .modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Print animation for hero */
+    .print-line {
+      width: 0;
+      animation: printLine 0.8s ease forwards;
+    }
+    @keyframes printLine {
+      to { width: 100%; }
+    }
+    .print-line-1 { animation-delay: 1s; }
+    .print-line-2 { animation-delay: 1.2s; }
+    .print-line-3 { animation-delay: 1.4s; }
+  </style>
+</head>
+<body class="font-poppins bg-brand-900 text-white overflow-x-hidden">
+
+  <!-- ========== FLOATING BACKGROUND DOCUMENTS ========== -->
+  <div id="floatingDocs" class="fixed inset-0 pointer-events-none z-0"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30 group-hover:scale-110 transition-transform">
+          <iconify-icon icon="mdi:printer" class="text-white text-xl"></iconify-icon>
+        </div>
+        <div>
+          <span class="font-playfair font-bold text-lg text-white leading-none">Quality Xerox</span>
+          <span class="block text-[10px] text-blue-300 tracking-[0.2em] uppercase">Camp Corner</span>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#services" class="text-sm text-white/70 hover:text-white transition-colors">Services</a>
+        <a href="#how-it-works" class="text-sm text-white/70 hover:text-white transition-colors">How It Works</a>
+        <a href="#upload" class="text-sm text-white/70 hover:text-white transition-colors">Upload</a>
+        <a href="#team" class="text-sm text-white/70 hover:text-white transition-colors">Our Team</a>
+        <a href="#contact" class="text-sm text-white/70 hover:text-white transition-colors">Contact</a>
+        <a href="https://wa.me/919763672535" target="_blank" class="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all hover:scale-105 shadow-lg shadow-green-500/25">
+          <iconify-icon icon="mdi:whatsapp" class="text-lg"></iconify-icon>
+          WhatsApp
+        </a>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden text-white p-2">
+        <iconify-icon icon="mdi:menu" class="text-2xl"></iconify-icon>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden hidden bg-brand-900/98 backdrop-blur-xl border-t border-white/10">
+      <div class="px-6 py-6 flex flex-col gap-4">
+        <a href="#services" class="text-white/80 hover:text-white py-2 mobile-link">Services</a>
+        <a href="#how-it-works" class="text-white/80 hover:text-white py-2 mobile-link">How It Works</a>
+        <a href="#upload" class="text-white/80 hover:text-white py-2 mobile-link">Upload</a>
+        <a href="#team" class="text-white/80 hover:text-white py-2 mobile-link">Our Team</a>
+        <a href="#contact" class="text-white/80 hover:text-white py-2 mobile-link">Contact</a>
+        <a href="https://wa.me/919763672535" target="_blank" class="flex items-center justify-center gap-2 bg-green-500 text-white px-5 py-3 rounded-full text-sm font-medium mt-2">
+          <iconify-icon icon="mdi:whatsapp" class="text-lg"></iconify-icon>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero-bg min-h-screen flex items-center relative pt-20">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-brand-900/80 z-[1]"></div>
+    <!-- Decorative circles -->
+    <div class="absolute top-1/4 right-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 md:px-8 w-full py-20">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Content -->
+        <div>
+          <div class="hero-fade-up inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8">
+            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <span class="text-xs text-blue-200 tracking-wide font-medium">NOW DELIVERING AT YOUR DOORSTEP</span>
+          </div>
+
+          <h1 class="hero-fade-up hero-fade-up-delay-1 font-playfair text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6">
+            Your Docs,
+            <span class="gradient-text"> Printed</span>
+            <br>& Delivered
+            <span class="inline-block animate-bounce">🚀</span>
+          </h1>
+
+          <p class="hero-fade-up hero-fade-up-delay-2 text-lg text-blue-100/80 max-w-lg mb-4 leading-relaxed">
+            Upload your documents online and get them printed, Xeroxed, and delivered to your doorstep — <strong class="text-white">as fast as 30 minutes!</strong>
+          </p>
+
+          <!-- Print animation lines -->
+          <div class="hero-fade-up hero-fade-up-delay-2 mb-8 space-y-2">
+            <div class="flex items-center gap-3">
+              <div class="print-line print-line-1 h-1 bg-gradient-to-r from-blue-400 to-transparent rounded-full"></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="print-line print-line-2 h-1 bg-gradient-to-r from-blue-400 to-transparent rounded-full max-w-[80%]"></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="print-line print-line-3 h-1 bg-gradient-to-r from-blue-400 to-transparent rounded-full max-w-[60%]"></div>
+            </div>
+          </div>
+
+          <div class="hero-fade-up hero-fade-up-delay-3 flex flex-wrap gap-4">
+            <a href="#upload" class="glow-btn bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-2xl text-sm font-semibold tracking-wide uppercase shadow-xl shadow-blue-600/30 hover:scale-105 transition-transform">
+              <span class="flex items-center gap-2">
+                <iconify-icon icon="mdi:cloud-upload" class="text-lg"></iconify-icon>
+                Upload & Order
+              </span>
+            </a>
+            <a href="https://wa.me/919763672535" target="_blank" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/20 text-white px-8 py-4 rounded-2xl text-sm font-semibold tracking-wide uppercase transition-all hover:scale-105">
+              <iconify-icon icon="mdi:whatsapp" class="text-lg text-green-400"></iconify-icon>
+              Chat With Us
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="hero-fade-up hero-fade-up-delay-4 grid grid-cols-3 gap-4 mt-12">
+            <div class="counter-box rounded-2xl p-4 text-center">
+              <div class="text-2xl md:text-3xl font-bold text-white" data-count="5000">0+</div>
+              <div class="text-xs text-blue-300 mt-1">Happy Customers</div>
+            </div>
+            <div class="counter-box rounded-2xl p-4 text-center">
+              <div class="text-2xl md:text-3xl font-bold text-white">30<span class="text-blue-400 text-lg">min</span></div>
+              <div class="text-xs text-blue-300 mt-1">Fast Delivery</div>
+            </div>
+            <div class="counter-box rounded-2xl p-4 text-center">
+              <div class="text-2xl md:text-3xl font-bold text-white">24/7</div>
+              <div class="text-xs text-blue-300 mt-1">WhatsApp Order</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right - Illustration Card -->
+        <div class="hero-fade-up hero-fade-up-delay-3 hidden lg:block">
+          <div class="relative">
+            <!-- Main card -->
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 shadow-2xl">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+              </div>
+              <!-- Document preview mockup -->
+              <div class="bg-white rounded-xl p-6 text-brand-900 space-y-3">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-sm font-semibold text-gray-800">📄 Document Preview</span>
+                  <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Ready</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded w-full"></div>
+                <div class="h-2 bg-gray-200 rounded w-11/12"></div>
+                <div class="h-2 bg-gray-200 rounded w-10/12"></div>
+                <div class="h-2 bg-blue-100 rounded w-9/12"></div>
+                <div class="h-2 bg-gray-200 rounded w-full"></div>
+                <div class="h-2 bg-gray-200 rounded w-8/12"></div>
+                <div class="h-2 bg-gray-200 rounded w-10/12"></div>
+                <div class="mt-4 flex items-center justify-between">
+                  <span class="text-xs text-gray-500">Pages: 5 | Color | A4</span>
+                  <span class="text-xs font-bold text-blue-600">₹75</span>
+                </div>
+              </div>
+              <!-- Delivery status -->
+              <div class="mt-6 bg-white/5 rounded-xl p-4">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
+                    <iconify-icon icon="mdi:motorbike" class="text-green-400"></iconify-icon>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-white">Out for Delivery</div>
+                    <div class="text-xs text-blue-300">Arriving in 15 mins</div>
+                  </div>
+                </div>
+                <div class="w-full bg-white/10 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-blue-500 to-green-400 h-2 rounded-full" style="width:70%"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Floating badge -->
+            <div class="absolute -top-4 -right-4 bg-green-500 text-white px-4 py-2 rounded-2xl text-sm font-bold shadow-xl shadow-green-500/30 animate-bounce">
+              ⚡ FAST DELIVERY
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+      <span class="text-xs text-blue-300 tracking-widest uppercase">Scroll</span>
+      <div class="w-6 h-10 border-2 border-blue-300/40 rounded-full flex justify-center pt-2">
+        <div class="w-1.5 h-1.5 bg-blue-300 rounded-full animate-bounce"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MARQUEE STRIP ========== -->
+  <div class="bg-blue-600 py-3 overflow-hidden relative z-10">
+    <div class="marquee-track">
+      <div class="flex items-center gap-8 px-4 whitespace-nowrap">
+        <span class="text-sm font-medium text-white/90">🖨️ XEROX</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">🖨️ PRINTING</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">📋 SCANNING</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">📎 LAMINATION</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">📚 BINDING</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">🚀 HOME DELIVERY</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">⚡ 30 MIN DELIVERY</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">📄 COLOR PRINT</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">📎 SPIRAL BINDING</span>
+        <span class="text-white/40">•</span>
+      </div>
+      <div class="flex items-center gap-8 px-4 whitespace-nowrap">
+        <span class="text-sm font-medium text-white/90">🖨️ XEROX</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">🖨️ PRINTING</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">📋 SCANNING</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">📎 LAMINATION</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">📚 BINDING</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">🚀 HOME DELIVERY</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">⚡ 30 MIN DELIVERY</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">📄 COLOR PRINT</span>
+        <span class="text-white/40">•</span>
+        <span class="text-sm font-medium text-white/90">📎 SPIRAL BINDING</span>
+        <span class="text-white/40">•</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SERVICES SECTION ========== -->
+  <section id="services" class="py-24 bg-brand-900 relative">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs tracking-[0.3em] uppercase text-blue-400 font-medium">What We Offer</span>
+        <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-4 mb-6">Our <span class="gradient-text">Services</span></h2>
+        <p class="text-blue-200/60 max-w-2xl mx-auto">From a single page copy to bulk printing, we handle everything with care and deliver it right to your doorstep.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Service Cards -->
+        <div class="card-lift bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 reveal" style="transition-delay:0.1s">
+          <div class="w-14 h-14 bg-blue-600/20 rounded-2xl flex items-center justify-center mb-5">
+            <iconify-icon icon="mdi:content-copy" class="text-blue-400 text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Xerox / Copying</h3>
+          <p class="text-sm text-blue-200/60 leading-relaxed">Black & White and Color Xerox at affordable prices. Single page to bulk orders.</p>
+          <div class="mt-4 text-blue-400 text-sm font-medium">Starting ₹2/page →</div>
+        </div>
+
+        <div class="card-lift bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 reveal" style="transition-delay:0.2s">
+          <div class="w-14 h-14 bg-purple-600/20 rounded-2xl flex items-center justify-center mb-5">
+            <iconify-icon icon="mdi:printer" class="text-purple-400 text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Color Printing</h3>
+          <p class="text-sm text-blue-200/60 leading-relaxed">High-quality color prints for documents, photos, presentations, and more.</p>
+          <div class="mt-4 text-purple-400 text-sm font-medium">Starting ₹10/page →</div>
+        </div>
+
+        <div class="card-lift bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 reveal" style="transition-delay:0.3s">
+          <div class="w-14 h-14 bg-green-600/20 rounded-2xl flex items-center justify-center mb-5">
+            <iconify-icon icon="mdi:document-scanner" class="text-green-400 text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Scanning</h3>
+          <p class="text-sm text-blue-200/60 leading-relaxed">Document scanning in high resolution. Get soft copies delivered via email or WhatsApp.</p>
+          <div class="mt-4 text-green-400 text-sm font-medium">Starting ₹5/page →</div>
+        </div>
+
+        <div class="card-lift bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 reveal" style="transition-delay:0.4s">
+          <div class="w-14 h-14 bg-amber-600/20 rounded-2xl flex items-center justify-center mb-5">
+            <iconify-icon icon="mdi:card-text" class="text-amber-400 text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Lamination</h3>
+          <p class="text-sm text-blue-200/60 leading-relaxed">Protect your important documents with quality lamination. All sizes available.</p>
+          <div class="mt-4 text-amber-400 text-sm font-medium">Starting ₹20/page →</div>
+        </div>
+
+        <div class="card-lift bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 reveal" style="transition-delay:0.5s">
+          <div class="w-14 h-14 bg-rose-600/20 rounded-2xl flex items-center justify-center mb-5">
+            <iconify-icon icon="mdi:book-open-variant" class="text-rose-400 text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Binding & Spiral</h3>
+          <p class="text-sm text-blue-200/60 leading-relaxed">Professional binding for reports, projects, thesis. Spiral, hard, and soft binding.</p>
+          <div class="mt-4 text-rose-400 text-sm font-medium">Starting ₹30 →</div>
+        </div>
+
+        <div class="card-lift bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 reveal" style="transition-delay:0.6s">
+          <div class="w-14 h-14 bg-cyan-600/20 rounded-2xl flex items-center justify-center mb-5">
+            <iconify-icon icon="mdi:motorbike" class="text-cyan-400 text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Home Delivery</h3>
+          <p class="text-sm text-blue-200/60 leading-relaxed">Get your documents delivered at your doorstep. As fast as 30 minutes!</p>
+          <div class="mt-4 text-cyan-400 text-sm font-medium">Starting ₹20 delivery →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section id="how-it-works" class="py-24 bg-brand-800/50 relative overflow-hidden">
+    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs tracking-[0.3em] uppercase text-blue-400 font-medium">Simple & Fast</span>
+        <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-4 mb-6">How It <span class="gradient-text">Works</span></h2>
+        <p class="text-blue-200/60 max-w-2xl mx-auto">Just like ordering food — upload, pay, and get your documents delivered!</p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-8 relative">
+        <!-- Connecting line -->
+        <div class="hidden md:block absolute top-16 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-blue-600 via-purple-500 to-green-500 opacity-30">
+          <svg class="w-full h-0.5" viewBox="0 0 100 1" preserveAspectRatio="none">
+            <line x1="0" y1="0.5" x2="100" y2="0.5" stroke="url(#lineGrad)" stroke-width="2" class="dash-animate"/>
+            <defs>
+              <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#2563eb"/>
+                <stop offset="50%" stop-color="#8b5cf6"/>
+                <stop offset="100%" stop-color="#22c55e"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="text-center reveal" style="transition-delay:0.1s">
+          <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-600/30 pulse-ring relative z-10">
+            <iconify-icon icon="mdi:cloud-upload" class="text-white text-2xl"></iconify-icon>
+          </div>
+          <div class="text-xs text-blue-400 font-bold mb-2">STEP 01</div>
+          <h3 class="text-lg font-semibold mb-2">Upload Document</h3>
+          <p class="text-sm text-blue-200/60">Upload your PDF, Word, or image files through our website or WhatsApp.</p>
+        </div>
+
+        <div class="text-center reveal" style="transition-delay:0.25s">
+          <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-purple-600/30 relative z-10">
+            <iconify-icon icon="mdi:cog" class="text-white text-2xl"></iconify-icon>
+          </div>
+          <div class="text-xs text-purple-400 font-bold mb-2">STEP 02</div>
+          <h3 class="text-lg font-semibold mb-2">We Print It</h3>
+          <p class="text-sm text-blue-200/60">We process and print your documents with the best quality settings.</p>
+        </div>
+
+        <div class="text-center reveal" style="transition-delay:0.4s">
+          <div class="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-amber-500/30 relative z-10">
+            <iconify-icon icon="mdi:package-variant-closed" class="text-white text-2xl"></iconify-icon>
+          </div>
+          <div class="text-xs text-amber-400 font-bold mb-2">STEP 03</div>
+          <h3 class="text-lg font-semibold mb-2">Pack & Ship</h3>
+          <p class="text-sm text-blue-200/60">Your documents are carefully packed to ensure safe delivery.</p>
+        </div>
+
+        <div class="text-center reveal" style="transition-delay:0.55s">
+          <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-green-500/30 relative z-10">
+            <iconify-icon icon="mdi:home-map-marker" class="text-white text-2xl"></iconify-icon>
+          </div>
+          <div class="text-xs text-green-400 font-bold mb-2">STEP 04</div>
+          <h3 class="text-lg font-semibold mb-2">Delivered! 🎉</h3>
+          <p class="text-sm text-blue-200/60">Get your documents at your doorstep within 30 minutes. That fast!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== UPLOAD & ORDER SECTION ========== -->
+  <section id="upload" class="py-24 bg-brand-900 relative">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-3xl"></div>
+    <div class="max-w-4xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center mb-12 reveal">
+        <span class="text-xs tracking-[0.3em] uppercase text-blue-400 font-medium">Quick Order</span>
+        <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-4 mb-6">Upload & <span class="gradient-text">Order</span></h2>
+        <p class="text-blue-200/60 max-w-xl mx-auto">Upload your documents, select options, and we'll deliver them to your doorstep!</p>
+      </div>
+
+      <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-6 md:p-10 reveal-scale">
+        <form id="orderForm">
+          <!-- Upload Zone -->
+          <div id="uploadZone" class="upload-zone rounded-2xl p-8 md:p-12 text-center cursor-pointer mb-8">
+            <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt" class="hidden">
+            <div id="uploadContent">
+              <div class="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <iconify-icon icon="mdi:cloud-upload" class="text-blue-400 text-3xl"></iconify-icon>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Drag & Drop Files Here</h3>
+              <p class="text-sm text-blue-200/60 mb-4">or click to browse</p>
+              <p class="text-xs text-blue-200/40">Supports: PDF, DOC, DOCX, JPG, PNG, TXT (Max 25MB each)</p>
+            </div>
+            <div id="fileList" class="hidden text-left space-y-3"></div>
+          </div>
+
+          <!-- Print Options -->
+          <div class="grid md:grid-cols-3 gap-6 mb-6">
+            <div>
+              <label class="text-sm font-medium text-blue-200 mb-2 block">Print Type</label>
+              <select id="printType" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors">
+                <option value="bw" class="bg-brand-900">Black & White</option>
+                <option value="color" class="bg-brand-900">Color</option>
+                <option value="mixed" class="bg-brand-900">Mixed (B&W + Color)</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-blue-200 mb-2 block">Paper Size</label>
+              <select id="paperSize" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors">
+                <option value="a4" class="bg-brand-900">A4</option>
+                <option value="a3" class="bg-brand-900">A3</option>
+                <option value="legal" class="bg-brand-900">Legal</option>
+                <option value="letter" class="bg-brand-900">Letter</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-blue-200 mb-2 block">Copies</label>
+              <div class="flex items-center bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+                <button type="button" onclick="changeCopies(-1)" class="px-4 py-3 text-blue-400 hover:bg-white/5 transition-colors">
+                  <iconify-icon icon="mdi:minus"></iconify-icon>
+                </button>
+                <input type="number" id="copies" value="1" min="1" max="100" class="flex-1 bg-transparent text-center text-white text-sm py-3 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+                <button type="button" onclick="changeCopies(1)" class="px-4 py-3 text-blue-400 hover:bg-white/5 transition-colors">
+                  <iconify-icon icon="mdi:plus"></iconify-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label class="text-sm font-medium text-blue-200 mb-2 block">Sides</label>
+              <div class="flex gap-3">
+                <label class="flex-1 cursor-pointer">
+                  <input type="radio" name="sides" value="single" checked class="hidden peer">
+                  <div class="peer-checked:bg-blue-600/20 peer-checked:border-blue-500 bg-white/5 border border-white/10 rounded-xl p-3 text-center text-sm transition-all">
+                    Single Side
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer">
+                  <input type="radio" name="sides" value="double" class="hidden peer">
+                  <div class="peer-checked:bg-blue-600/20 peer-checked:border-blue-500 bg-white/5 border border-white/10 rounded-xl p-3 text-center text-sm transition-all">
+                    Both Sides
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-blue-200 mb-2 block">Binding</label>
+              <select id="binding" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors">
+                <option value="none" class="bg-brand-900">No Binding</option>
+                <option value="spiral" class="bg-brand-900">Spiral Binding</option>
+                <option value="hard" class="bg-brand-900">Hard Binding</option>
+                <option value="staple" class="bg-brand-900">Staple</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Additional Services -->
+          <div class="mb-6">
+            <label class="text-sm font-medium text-blue-200 mb-3 block">Additional Services</label>
+            <div class="flex flex-wrap gap-3">
+              <label class="cursor-pointer">
+                <input type="checkbox" value="lamination" class="hidden peer extra-service">
+                <div class="peer-checked:bg-amber-600/20 peer-checked:border-amber-500 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm transition-all">
+                  📎 Lamination
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" value="stapling" class="hidden peer extra-service">
+                <div class="peer-checked:bg-purple-600/20 peer-checked:border-purple-500 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm transition-all">
+                  📌 Stapling
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" value="hole-punch" class="hidden peer extra-service">
+                <div class="peer-checked:bg-green-600/20 peer-checked:border-green-500 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm transition-all">
+                  🕳️ Hole Punch
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" value="envelope" class="hidden peer extra-service">
+                <div class="peer-checked:bg-rose-600/20 peer-checked:border-rose-500 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm transition-all">
+                  ✉️ Envelope
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Delivery Info -->
+          <div class="bg-gradient-to-r from-green-600/10 to-blue-600/10 border border-green-500/20 rounded-2xl p-6 mb-6">
+            <div class="flex items-center gap-2 mb-4">
+              <iconify-icon icon="mdi:motorbike" class="text-green-400 text-xl"></iconify-icon>
+              <span class="text-sm font-semibold text-green-300">Delivery Details</span>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs text-blue-200/60 mb-1 block">Full Name *</label>
+                <input type="text" id="custName" placeholder="Your name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-blue-200/30 focus:outline-none focus:border-green-500 transition-colors">
+              </div>
+              <div>
+                <label class="text-xs text-blue-200/60 mb-1 block">Phone Number *</label>
+                <input type="tel" id="custPhone" placeholder="Your phone number" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-blue-200/30 focus:outline-none focus:border-green-500 transition-colors">
+              </div>
+              <div class="md:col-span-2">
+                <label class="text-xs text-blue-200/60 mb-1 block">Delivery Address *</label>
+                <textarea id="custAddress" rows="2" placeholder="Full delivery address with landmark" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-blue-200/30 focus:outline-none focus:border-green-500 transition-colors resize-none"></textarea>
+              </div>
+              <div>
+                <label class="text-xs text-blue-200/60 mb-1 block">Delivery Speed</label>
+                <div class="flex gap-3">
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" name="delivery" value="express" checked class="hidden peer">
+                    <div class="peer-checked:bg-green-600/20 peer-checked:border-green-500 bg-white/5 border border-white/10 rounded-xl p-3 text-center transition-all">
+                      <div class="text-sm font-medium">⚡ Express</div>
+                      <div class="text-xs text-blue-200/40">30 min</div>
+                    </div>
+                  </label>
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" name="delivery" value="standard" class="hidden peer">
+                    <div class="peer-checked:bg-blue-600/20 peer-checked:border-blue-500 bg-white/5 border border-white/10 rounded-xl p-3 text-center transition-all">
+                      <div class="text-sm font-medium">📦 Standard</div>
+                      <div class="text-xs text-blue-200/40">2-4 hours</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-blue-200/60 mb-1 block">Special Instructions</label>
+                <input type="text" id="instructions" placeholder="Any special notes..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-blue-200/30 focus:outline-none focus:border-green-500 transition-colors">
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Summary -->
+          <div id="orderSummary" class="bg-white/5 rounded-2xl p-6 mb-8 hidden">
+            <h3 class="text-sm font-semibold mb-4 flex items-center gap-2">
+              <iconify-icon icon="mdi:receipt-text" class="text-blue-400"></iconify-icon>
+              Order Summary
+            </h3>
+            <div id="summaryContent" class="space-y-2 text-sm"></div>
+            <div class="border-t border-white/10 mt-4 pt-4 flex justify-between items-center">
+              <span class="font-semibold">Estimated Total</span>
+              <span id="totalPrice" class="text-xl font-bold gradient-text">₹0</span>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-2xl text-sm font-bold tracking-wide uppercase transition-all hover:scale-[1.02] shadow-lg shadow-green-500/25 flex items-center justify-center gap-3">
+            <iconify-icon icon="mdi:whatsapp" class="text-xl"></iconify-icon>
+            Send Order via WhatsApp
+          </button>
+          <p class="text-center text-xs text-blue-200/40 mt-3">Your order details will be sent to our WhatsApp for quick processing</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DELIVERY PROMISE ========== -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-green-600/10"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="reveal-left">
+          <span class="text-xs tracking-[0.3em] uppercase text-green-400 font-medium">Lightning Fast</span>
+          <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-4 mb-6">Delivery Like <span class="gradient-text">Blinkit</span> ⚡</h2>
+          <p class="text-blue-200/60 mb-8 leading-relaxed">We understand urgency. That's why we've built a delivery system that gets your documents to you as fast as possible. No more waiting in queues!</p>
+          
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                <iconify-icon icon="mdi:timer-fast" class="text-green-400 text-xl"></iconify-icon>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1">Express Delivery</h4>
+                <p class="text-sm text-blue-200/60">Get your documents in 30 minutes or less with our express delivery option.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                <iconify-icon icon="mdi:map-marker-radius" class="text-blue-400 text-xl"></iconify-icon>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1">Live Location Tracking</h4>
+                <p class="text-sm text-blue-200/60">Track your delivery partner in real-time via WhatsApp updates.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                <iconify-icon icon="mdi:shield-check" class="text-purple-400 text-xl"></iconify-icon>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1">Safe & Secure</h4>
+                <p class="text-sm text-blue-200/60">Your documents are handled with care and delivered in protective packaging.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal-right">
+          <!-- Delivery Timer Mockup -->
+          <div class="bg-white/5 backdrop-blur border border-white/10 rounded-3xl p-8 text-center">
+            <div class="text-6xl mb-6">🛵</div>
+            <h3 class="text-xl font-bold mb-2">Your Order is on the Way!</h3>
+            <p class="text-sm text-blue-200/60 mb-6">Estimated arrival time</p>
+            <div class="flex items-center justify-center gap-4 mb-8">
+              <div class="bg-blue-600/20 rounded-2xl px-5 py-3">
+                <div id="timerMin" class="text-3xl font-bold text-blue-400">12</div>
+                <div class="text-xs text-blue-300">MINS</div>
+              </div>
+              <span class="text-2xl text-blue-400 font-light animate-pulse">:</span>
+              <div class="bg-blue-600/20 rounded-2xl px-5 py-3">
+                <div id="timerSec" class="text-3xl font-bold text-blue-400">34</div>
+                <div class="text-xs text-blue-300">SECS</div>
+              </div>
+            </div>
+            <div class="w-full bg-white/10 rounded-full h-2 mb-4">
+              <div class="bg-gradient-to-r from-blue-500 via-green-400 to-green-500 h-2 rounded-full transition-all duration-1000" style="width:72%"></div>
+            </div>
+            <div class="flex justify-between text-xs text-blue-200/40">
+              <span>Order Placed</span>
+              <span>Printing</span>
+              <span>Out for Delivery</span>
+              <span>Delivered!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TEAM & SHOP SLIDESHOW ========== -->
+  <section id="team" class="py-24 bg-brand-800/50 relative overflow-hidden">
+    <div class="absolute top-0 left-1/3 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs tracking-[0.3em] uppercase text-blue-400 font-medium">Our People & Place</span>
+        <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-4 mb-6">Meet the <span class="gradient-text">Team</span></h2>
+        <p class="text-blue-200/60 max-w-2xl mx-auto">The amazing people behind Quality Xerox who make sure your documents are perfect every time.</p>
+      </div>
+
+      <!-- Slideshow -->
+      <div class="relative max-w-4xl mx-auto mb-16 reveal-scale">
+        <div class="slideshow-container aspect-[16/9] rounded-3xl overflow-hidden bg-white/5 border border-white/10">
+          <!-- Slide 1 - Shop Front -->
+          <div class="slide active-slide">
+            <div class="w-full h-full flex flex-col items-center justify-center p-8 md:p-12">
+              <div class="photo-placeholder w-full max-w-lg h-64 rounded-2xl mb-6">
+                <div class="flex flex-col items-center">
+                  <iconify-icon icon="mdi:store" class="text-4xl text-gray-400 mb-2"></iconify-icon>
+                  <span class="text-sm text-gray-500">Shop Front Photo</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-semibold">Quality Xerox - Main Store</h3>
+              <p class="text-sm text-blue-200/60">Camp Corner, Near Bhatkuli Tehsil</p>
+            </div>
+          </div>
+          <!-- Slide 2 - Shop Interior -->
+          <div class="slide">
+            <div class="w-full h-full flex flex-col items-center justify-center p-8 md:p-12">
+              <div class="photo-placeholder w-full max-w-lg h-64 rounded-2xl mb-6">
+                <div class="flex flex-col items-center">
+                  <iconify-icon icon="mdi:printer-3d" class="text-4xl text-gray-400 mb-2"></iconify-icon>
+                  <span class="text-sm text-gray-500">Shop Interior Photo</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-semibold">Inside the Shop</h3>
+              <p class="text-sm text-blue-200/60">Where the magic happens! Our printing station</p>
+            </div>
+          </div>
+          <!-- Slide 3 - Team -->
+          <div class="slide">
+            <div class="w-full h-full flex flex-col items-center justify-center p-8 md:p-12">
+              <div class="photo-placeholder w-full max-w-lg h-64 rounded-2xl mb-6">
+                <div class="flex flex-col items-center">
+                  <iconify-icon icon="mdi:account-group" class="text-4xl text-gray-400 mb-2"></iconify-icon>
+                  <span class="text-sm text-gray-500">Team Photo</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-semibold">Our Team</h3>
+              <p class="text-sm text-blue-200/60">The dedicated team at Quality Xerox</p>
+            </div>
+          </div>
+          <!-- Slide 4 - Equipment -->
+          <div class="slide">
+            <div class="w-full h-full flex flex-col items-center justify-center p-8 md:p-12">
+              <div class="photo-placeholder w-full max-w-lg h-64 rounded-2xl mb-6">
+                <div class="flex flex-col items-center">
+                  <iconify-icon icon="mdi:printer-settings" class="text-4xl text-gray-400 mb-2"></iconify-icon>
+                  <span class="text-sm text-gray-500">Equipment Photo</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-semibold">Our Equipment</h3>
+              <p class="text-sm text-blue-200/60">State-of-the-art printing machines</p>
+            </div>
+          </div>
+          <!-- Slide 5 - Delivery -->
+          <div class="slide">
+            <div class="w-full h-full flex flex-col items-center justify-center p-8 md:p-12">
+              <div class="photo-placeholder w-full max-w-lg h-64 rounded-2xl mb-6">
+                <div class="flex flex-col items-center">
+                  <iconify-icon icon="mdi:motorbike" class="text-4xl text-gray-400 mb-2"></iconify-icon>
+                  <span class="text-sm text-gray-500">Delivery Photo</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-semibold">Fast Delivery Fleet</h3>
+              <p class="text-sm text-blue-200/60">Our delivery team ready to serve you</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide Controls -->
+        <button onclick="changeSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur border border-white/20 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+          <iconify-icon icon="mdi:chevron-left" class="text-xl"></iconify-icon>
+        </button>
+        <button onclick="changeSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur border border-white/20 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+          <iconify-icon icon="mdi:chevron-right" class="text-xl"></iconify-icon>
+        </button>
+        <!-- Dots -->
+        <div class="flex justify-center gap-3 mt-6">
+          <button onclick="goToSlide(0)" class="slide-dot w-3 h-3 rounded-full bg-blue-500 transition-all"></button>
+          <button onclick="goToSlide(1)" class="slide-dot w-3 h-3 rounded-full bg-white/30 transition-all"></button>
+          <button onclick="goToSlide(2)" class="slide-dot w-3 h-3 rounded-full bg-white/30 transition-all"></button>
+          <button onclick="goToSlide(3)" class="slide-dot w-3 h-3 rounded-full bg-white/30 transition-all"></button>
+          <button onclick="goToSlide(4)" class="slide-dot w-3 h-3 rounded-full bg-white/30 transition-all"></button>
+        </div>
+      </div>
+
+      <!-- Team Members Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="card-lift bg-white/5 border border-white/10 rounded-2xl p-6 text-center reveal" style="transition-delay:0.1s">
+          <div class="photo-placeholder w-24 h-24 rounded-full mx-auto mb-4">
+            <iconify-icon icon="mdi:account" class="text-3xl text-gray-400"></iconify-icon>
+          </div>
+          <h4 class="font-semibold">Team Member 1</h4>
+          <p class="text-xs text-blue-400 mt-1">Print Specialist</p>
+          <p class="text-xs text-blue-200/40 mt-2">Expert in color management & quality control</p>
+        </div>
+        <div class="card-lift bg-white/5 border border-white/10 rounded-2xl p-6 text-center reveal" style="transition-delay:0.2s">
+          <div class="photo-placeholder w-24 h-24 rounded-full mx-auto mb-4">
+            <iconify-icon icon="mdi:account" class="text-3xl text-gray-400"></iconify-icon>
+          </div>
+          <h4 class="font-semibold">Team Member 2</h4>
+          <p class="text-xs text-blue-400 mt-1">Binding Expert</p>
+          <p class="text-xs text-blue-200/40 mt-2">Master of all binding & lamination work</p>
+        </div>
+        <div class="card-lift bg-white/5 border border-white/10 rounded-2xl p-6 text-center reveal" style="transition-delay:0.3s">
+          <div class="photo-placeholder w-24 h-24 rounded-full mx-auto mb-4">
+            <iconify-icon icon="mdi:account" class="text-3xl text-gray-400"></iconify-icon>
+          </div>
+          <h4 class="font-semibold">Team Member 3</h4>
+          <p class="text-xs text-green-400 mt-1">Delivery Partner</p>
+          <p class="text-xs text-blue-200/40 mt-2">Fast & reliable document delivery</p>
+        </div>
+        <div class="card-lift bg-white/5 border border-white/10 rounded-2xl p-6 text-center reveal" style="transition-delay:0.4s">
+          <div class="photo-placeholder w-24 h-24 rounded-full mx-auto mb-4">
+            <iconify-icon icon="mdi:account" class="text-3xl text-gray-400"></iconify-icon>
+          </div>
+          <h4 class="font-semibold">Team Member 4</h4>
+          <p class="text-xs text-purple-400 mt-1">Customer Support</p>
+          <p class="text-xs text-blue-200/40 mt-2">Always ready to help you</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== OWNER SECTION ========== -->
+  <section class="py-24 bg-brand-900 relative overflow-hidden">
+    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-80 h-80 bg-blue-600/5 rounded-full blur-3xl"></div>
+    <div class="max-w-6xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="reveal-left">
+          <div class="relative">
+            <!-- Owner Photo -->
+            <div class="photo-placeholder w-72 h-80 md:w-80 md:h-96 rounded-3xl mx-auto shadow-2xl">
+              <div class="flex flex-col items-center">
+                <iconify-icon icon="mdi:account-tie" class="text-5xl text-gray-400 mb-3"></iconify-icon>
+                <span class="text-sm text-gray-500 font-medium">Owner's Photo</span>
+                <span class="text-xs text-gray-400 mt-1">Tahir Shaikh</span>
+              </div>
+            </div>
+            <!-- Decorative frame -->
+            <div class="absolute -bottom-4 -right-4 w-72 h-80 md:w-80 md:h-96 border-2 border-blue-500/30 rounded-3xl -z-10"></div>
+            <!-- Badge -->
+            <div class="absolute -top-3 -right-3 bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-lg">
+              🏆 FOUNDER
+            </div>
+          </div>
+        </div>
+        <div class="reveal-right">
+          <span class="text-xs tracking-[0.3em] uppercase text-blue-400 font-medium">The Man Behind Quality Xerox</span>
+          <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-4 mb-6">Tahir <span class="gradient-text">Shaikh</span></h2>
+          <div class="text-blue-200/70 space-y-4 leading-relaxed mb-8">
+            <p>Welcome to Quality Xerox! I started this shop with a simple belief — everyone deserves quick, affordable, and high-quality document services without the hassle of waiting.</p>
+            <p>With years of experience in the printing industry, I've built Quality Xerox to be the most reliable document shop in the area. Now with our new home delivery service, we're bringing the shop to your doorstep!</p>
+            <p class="italic text-blue-300/80 font-playfair text-lg">"Your documents, our responsibility — delivered with care and speed."</p>
+          </div>
+          <div class="flex flex-wrap gap-4">
+            <a href="https://wa.me/919763672535" target="_blank" class="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl text-sm font-medium transition-all hover:scale-105 shadow-lg shadow-green-500/25">
+              <iconify-icon icon="mdi:whatsapp" class="text-lg"></iconify-icon>
+              Chat with Tahir
+            </a>
+            <a href="tel:+919763672535" class="flex items-center gap-2 bg-white/10 border border-white/20 text-white px-6 py-3 rounded-xl text-sm font-medium transition-all hover:scale-105 hover:bg-white/20">
+              <iconify-icon icon="mdi:phone" class="text-lg"></iconify-icon>
+              Call Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRICING SECTION ========== -->
+  <section class="py-24 bg-brand-800/50 relative">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs tracking-[0.3em] uppercase text-blue-400 font-medium">Transparent Pricing</span>
+        <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-4 mb-6">Affordable <span class="gradient-text">Prices</span></h2>
+        <p class="text-blue-200/60 max-w-2xl mx-auto">No hidden charges. What you see is what you pay!</p>
+      </div>
+
+      <div class="max-w-3xl mx-auto bg-white/5 backdrop-blur border border-white/10 rounded-3xl overflow-hidden reveal-scale">
+        <table class="w-full">
+          <thead>
+            <tr class="bg-blue-600/20">
+              <th class="text-left px-6 py-4 text-sm font-semibold text-blue-200">Service</th>
+              <th class="text-right px-6 py-4 text-sm font-semibold text-blue-200">Price</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            <tr class="hover:bg-white/5 transition-colors"><td class="px-6 py-4 text-sm">📄 B&W Xerox (A4)</td><td class="px-6 py-4 text-sm text-right font-medium">₹2/page</td></tr>
+            <tr class="hover:bg-white/5 transition-colors"><td class="px-6 py-4 text-sm">🎨 Color Xerox (A4)</td><td class="px-6 py-4 text-sm text-right font-medium">₹10/page</td></tr>
+            <tr class="hover:bg-white/5 transition-colors"><td class="px-6 py-4 text-sm">🖨️ Color Print (A4)</td><td class="px-6 py-4 text-sm text-right font-medium">₹15/page</td></tr>
+            <tr class="hover:bg-white/5 transition-colors"><td class="px-6 py-4 text-sm">📋 Scanning</td><td class="px-6 py-4 text-sm text-right font-medium">₹5/page</td></tr>
+            <tr class="hover:bg-white/5 transition-colors"><td class="px-6 py-4 text-sm">📎 Lamination (A4)</td><td class="px-6 py-4 text-sm text-right font-medium">₹20/page</td></tr>
+            <tr class="hover:bg-white/5 transition-colors"><td class="px-6 py-4 text-sm">📚 Spiral Binding</td><td class="px-6 py-4 text-sm text-right font-medium">₹30</td></tr>
+            <tr class="hover:bg-white/5 transition-colors"><td class="px-6 py-4 text-sm">📕 Hard Binding</td><td class="px-6 py-4 text-sm text-right font-medium">₹80</td></tr>
+            <tr class="hover:bg-white/5 transition-colors"><td class="px-6 py-4 text-sm">📄 A3 Print (Color)</td><td class="px-6 py-4 text-sm text-right font-medium">₹40/page</td></tr>
+            <tr class="hover:bg-white/5 transition-colors bg-green-500/10"><td class="px-6 py-4 text-sm font-medium">🚀 Express Delivery</td><td class="px-6 py-4 text-sm text-right font-medium text-green-400">₹30</td></tr>
+            <tr class="hover:bg-white/5 transition-colors bg-blue-500/10"><td class="px-6 py-4 text-sm font-medium">📦 Standard Delivery</td><td class="px-6 py-4 text-sm text-right font-medium text-blue-400">₹20</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS ========== -->
+  <section class="py-24 bg-brand-900 relative">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs tracking-[0.3em] uppercase text-blue-400 font-medium">Happy Customers</span>
+        <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-4 mb-6">What People <span class="gradient-text">Say</span></h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card-lift bg-white/5 border border-white/10 rounded-2xl p-8 reveal" style="transition-delay:0.1s">
+          <div class="flex items-center gap-1 mb-4">
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+          </div>
+          <p class="text-sm text-blue-200/70 leading-relaxed mb-6">"Got my project printed and delivered within 45 minutes! The quality was excellent and the price was very reasonable. Will definitely order again."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-blue-600/30 rounded-full flex items-center justify-center">
+              <iconify-icon icon="mdi:account" class="text-blue-300"></iconify-icon>
+            </div>
+            <div>
+              <div class="text-sm font-medium">Rahul K.</div>
+              <div class="text-xs text-blue-200/40">Student</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-lift bg-white/5 border border-white/10 rounded-2xl p-8 reveal" style="transition-delay:0.2s">
+          <div class="flex items-center gap-1 mb-4">
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+          </div>
+          <p class="text-sm text-blue-200/70 leading-relaxed mb-6">"Tahir bhai's shop is the best! I needed 200 copies urgently for an event and they delivered on time with perfect quality. Highly recommended!"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-green-600/30 rounded-full flex items-center justify-center">
+              <iconify-icon icon="mdi:account" class="text-green-300"></iconify-icon>
+            </div>
+            <div>
+              <div class="text-sm font-medium">Priya M.</div>
+              <div class="text-xs text-blue-200/40">Business Owner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-lift bg-white/5 border border-white/10 rounded-2xl p-8 reveal" style="transition-delay:0.3s">
+          <div class="flex items-center gap-1 mb-4">
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
+            <iconify-icon icon="mdi:star-half-full" class="text-amber-400"></iconify-icon>
+          </div>
+          <p class="text-sm text-blue-200/70 leading-relaxed mb-6">"The home delivery feature is a game changer! Just sent my documents on WhatsApp and got them delivered at home. So convenient and affordable."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-purple-600/30 rounded-full flex items-center justify-center">
+              <iconify-icon icon="mdi:account" class="text-purple-300"></iconify-icon>
+            </div>
+            <div>
+              <div class="text-sm font-medium">Amit S.</div>
+              <div class="text-xs text-blue-200/40">Teacher</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ SECTION ========== -->
+  <section class="py-24 bg-brand-800/50 relative">
+    <div class="max-w-3xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs tracking-[0.3em] uppercase text-blue-400 font-medium">Got Questions?</span>
+        <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-4 mb-6">Frequently <span class="gradient-text">Asked</span></h2>
+      </div>
+
+      <div class="space-y-4 reveal">
+        <div class="faq-item bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between px-6 py-5 text-left">
+            <span class="text-sm font-medium pr-4">How fast can you deliver my documents?</span>
+            <iconify-icon icon="mdi:chevron-down" class="text-xl text-blue-400 transition-transform flex-shrink-0 faq-icon"></iconify-icon>
+          </button>
+          <div class="faq-answer px-6 pb-5 hidden">
+            <p class="text-sm text-blue-200/60 leading-relaxed">Our express delivery gets your documents to you within 30 minutes! Standard delivery takes 2-4 hours. Delivery times may vary based on distance and order volume.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between px-6 py-5 text-left">
+            <span class="text-sm font-medium pr-4">What file formats do you accept?</span>
+            <iconify-icon icon="mdi:chevron-down" class="text-xl text-blue-400 transition-transform flex-shrink-0 faq-icon"></iconify-icon>
+          </button>
+          <div class="faq-answer px-6 pb-5 hidden">
+            <p class="text-sm text-blue-200/60 leading-relaxed">We accept PDF, DOC, DOCX, JPG, PNG, and TXT files. You can upload them through our website or send them directly on WhatsApp.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between px-6 py-5 text-left">
+            <span class="text-sm font-medium pr-4">How do I pay for my order?</span>
+            <iconify-icon icon="mdi:chevron-down" class="text-xl text-blue-400 transition-transform flex-shrink-0 faq-icon"></iconify-icon>
+          </button>
+          <div class="faq-answer px-6 pb-5 hidden">
+            <p class="text-sm text-blue-200/60 leading-relaxed">We accept Cash on Delivery, UPI (Google Pay, PhonePe, Paytm), and bank transfer. Pay when your documents are delivered!</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between px-6 py-5 text-left">
+            <span class="text-sm font-medium pr-4">Do you offer bulk order discounts?</span>
+            <iconify-icon icon="mdi:chevron-down" class="text-xl text-blue-400 transition-transform flex-shrink-0 faq-icon"></iconify-icon>
+          </button>
+          <div class="faq-answer px-6 pb-5 hidden">
+            <p class="text-sm text-blue-200/60 leading-relaxed">Absolutely! Orders above 100 pages get special discounted rates. Contact us on WhatsApp for custom bulk pricing.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between px-6 py-5 text-left">
+            <span class="text-sm font-medium pr-4">What areas do you deliver to?</span>
+            <iconify-icon icon="mdi:chevron-down" class="text-xl text-blue-400 transition-transform flex-shrink-0 faq-icon"></iconify-icon>
+          </button>
+          <div class="faq-answer px-6 pb-5 hidden">
+            <p class="text-sm text-blue-200/60 leading-relaxed">We currently deliver within Bhatkuli Tehsil and surrounding areas. Contact us to check if we deliver to your location!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT SECTION ========== -->
+  <section id="contact" class="py-24 bg-brand-900 relative overflow-hidden">
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-green-600/5 rounded-full blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs tracking-[0.3em] uppercase text-blue-400 font-medium">Get In Touch</span>
+        <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-4 mb-6">Contact <span class="gradient-text">Us</span></h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        <!-- Address -->
+        <div class="card-lift bg-white/5 border border-white/10 rounded-2xl p-8 text-center reveal" style="transition-delay:0.1s">
+          <div class="w-14 h-14 bg-blue-600/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <iconify-icon icon="mdi:map-marker" class="text-blue-400 text-2xl"></iconify-icon>
+          </div>
+          <h3 class="font-semibold mb-2">Visit Our Shop</h3>
+          <p class="text-sm text-blue-200/60 leading-relaxed">Camp Corner,<br>Near Bhatkuli Tehsil</p>
+        </div>
+
+        <!-- Phone -->
+        <div class="card-lift bg-white/5 border border-white/10 rounded-2xl p-8 text-center reveal" style="transition-delay:0.2s">
+          <div class="w-14 h-14 bg-green-600/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <iconify-icon icon="mdi:phone" class="text-green-400 text-2xl"></iconify-icon>
+          </div>
+          <h3 class="font-semibold mb-2">Call Us</h3>
+          <a href="tel:+919763672535" class="text-sm text-blue-200/60 hover:text-white transition-colors">+91 97636 72535</a>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="card-lift bg-white/5 border border-white/10 rounded-2xl p-8 text-center reveal" style="transition-delay:0.3s">
+          <div class="w-14 h-14 bg-green-600/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <iconify-icon icon="mdi:whatsapp" class="text-green-400 text-2xl"></iconify-icon>
+          </div>
+          <h3 class="font-semibold mb-2">WhatsApp</h3>
+          <a href="https://wa.me/919763672535" target="_blank" class="text-sm text-green-400 hover:text-green-300 transition-colors">Chat Now →</a>
+        </div>
+      </div>
+
+      <!-- Map & Hours -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 reveal-left">
+          <h3 class="font-semibold mb-4 flex items-center gap-2">
+            <iconify-icon icon="mdi:clock" class="text-blue-400"></iconify-icon>
+            Business Hours
+          </h3>
+          <div class="space-y-3">
+            <div class="flex justify-between text-sm">
+              <span class="text-blue-200/60">Monday - Saturday</span>
+              <span class="font-medium">8:00 AM - 10:00 PM</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-blue-200/60">Sunday</span>
+              <span class="font-medium">9:00 AM - 8:00 PM</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-blue-200/60">WhatsApp Orders</span>
+              <span class="font-medium text-green-400">24/7 Available</span>
+            </div>
+          </div>
+          <div class="mt-6 p-4 bg-green-500/10 border border-green-500/20 rounded-xl">
+            <p class="text-xs text-green-300">💡 You can send your documents on WhatsApp anytime! We'll process them when we open.</p>
+          </div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden reveal-right">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.1!2d77.7!3d20.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjDCsDU0JzAwLjAiTiA3N8KwNDInMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890" width="100%" height="100%" style="border:0;min-height:300px" allowfullscreen="" loading="lazy" class="opacity-70 hover:opacity-100 transition-opacity"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA SECTION ========== -->
+  <section class="py-20 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 md:px-8 text-center relative z-10 reveal">
+      <h2 class="font-playfair text-3xl md:text-5xl font-bold mb-6">Ready to Get Your Documents?</h2>
+      <p class="text-lg text-blue-100/80 mb-10 max-w-2xl mx-auto">Upload now and get them delivered at your doorstep. It's that simple!</p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#upload" class="bg-white text-blue-700 hover:bg-blue-50 px-8 py-4 rounded-2xl text-sm font-bold tracking-wide uppercase shadow-xl hover:scale-105 transition-all flex items-center gap-2">
+          <iconify-icon icon="mdi:cloud-upload" class="text-lg"></iconify-icon>
+          Upload & Order
+        </a>
+        <a href="https://wa.me/919763672535" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-2xl text-sm font-bold tracking-wide uppercase shadow-xl shadow-green-500/25 hover:scale-105 transition-all flex items-center gap-2">
+          <iconify-icon icon="mdi:whatsapp" class="text-lg"></iconify-icon>
+          WhatsApp Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-brand-900 border-t border-white/5 pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="grid md:grid-cols-4 gap-12 mb-12">
+        <!-- Brand -->
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
+              <iconify-icon icon="mdi:printer" class="text-white text-xl"></iconify-icon>
+            </div>
+            <div>
+              <span class="font-playfair font-bold text-lg text-white">Quality Xerox</span>
+              <span class="block text-[10px] text-blue-300 tracking-[0.2em] uppercase">Camp Corner</span>
+            </div>
+          </div>
+          <p class="text-sm text-blue-200/50 leading-relaxed max-w-sm mb-6">Your trusted document partner. Xerox, printing, scanning, lamination, binding — all delivered to your doorstep at lightning speed.</p>
+          <div class="flex gap-3">
+            <a href="https://wa.me/919763672535" target="_blank" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-green-600/20 hover:border-green-500/30 transition-all">
+              <iconify-icon icon="mdi:whatsapp" class="text-green-400"></iconify-icon>
+            </a>
+            <a href="tel:+919763672535" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-blue-600/20 hover:border-blue-500/30 transition-all">
+              <iconify-icon icon="mdi:phone" class="text-blue-400"></iconify-icon>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-pink-600/20 hover:border-pink-500/30 transition-all">
+              <iconify-icon icon="mdi:instagram" class="text-pink-400"></iconify-icon>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-blue-600/20 hover:border-blue-500/30 transition-all">
+              <iconify-icon icon="mdi:facebook" class="text-blue-400"></iconify-icon>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-sm font-semibold mb-4 text-white">Quick Links</h4>
+          <div class="space-y-3">
+            <a href="#services" class="block text-sm text-blue-200/50 hover:text-white transition-colors">Services</a>
+            <a href="#how-it-works" class="block text-sm text-blue-200/50 hover:text-white transition-colors">How It Works</a>
+            <a href="#upload" class="block text-sm text-blue-200/50 hover:text-white transition-colors">Upload Documents</a>
+            <a href="#team" class="block text-sm text-blue-200/50 hover:text-white transition-colors">Our Team</a>
+            <a href="#contact" class="block text-sm text-blue-200/50 hover:text-white transition-colors">Contact Us</a>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-sm font-semibold mb-4 text-white">Contact</h4>
+          <div class="space-y-3">
+            <div class="flex items-start gap-2">
+              <iconify-icon icon="mdi:map-marker" class="text-blue-400 mt-0.5 flex-shrink-0"></iconify-icon>
+              <span class="text-sm text-blue-200/50">Camp Corner, Near Bhatkuli Tehsil</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <iconify-icon icon="mdi:phone" class="text-blue-400 flex-shrink-0"></iconify-icon>
+              <a href="tel:+919763672535" class="text-sm text-blue-200/50 hover:text-white transition-colors">+91 97636 72535</a>
+            </div>
+            <div class="flex items-center gap-2">
+              <iconify-icon icon="mdi:whatsapp" class="text-green-400 flex-shrink-0"></iconify-icon>
+              <a href="https://wa.me/919763672535" target="_blank" class="text-sm text-blue-200/50 hover:text-white transition-colors">97636 72535</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-blue-200/30">© 2025 Quality Xerox. All rights reserved.</p>
+        <p class="text-xs text-blue-200/30">Made with ❤️ for Tahir Shaikh</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== WHATSAPP FLOATING BUTTON ========== -->
+  <a href="https://wa.me/919763672535" target="_blank" class="whatsapp-float fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/40 transition-all hover:scale-110 group">
+    <iconify-icon icon="mdi:whatsapp" class="text-white text-3xl"></iconify-icon>
+    <!-- Tooltip -->
+    <div class="absolute right-20 bg-white text-gray-800 px-4 py-2 rounded-xl text-sm font-medium shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+      Chat with us! 💬
+      <div class="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-white rotate-45"></div>
+    </div>
+  </a>
+
+  <!-- ========== TOAST CONTAINER ========== -->
+  <div id="toastContainer" class="fixed bottom-24 right-6 z-50 space-y-3"></div>
+
+  <!-- ========== ORDER SUCCESS MODAL ========== -->
+  <div id="orderModal" class="modal-overlay fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="modal-content bg-brand-800 border border-white/10 rounded-3xl p-8 max-w-md w-full text-center">
+      <div class="text-6xl mb-4">🎉</div>
+      <h3 class="text-2xl font-bold mb-2">Order Sent!</h3>
+      <p class="text-sm text-blue-200/60 mb-6">Your order has been sent to our WhatsApp. We'll confirm and process it shortly!</p>
+      <div class="bg-green-500/10 border border-green-500/20 rounded-xl p-4 mb-6">
+        <p class="text-xs text-green-300">Tahir Shaikh will respond within a few minutes on WhatsApp.</p>
+      </div>
+      <button onclick="closeModal()" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-xl text-sm font-semibold transition-all hover:scale-105">
+        Got it! 👍
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // ===== FLOATING DOCUMENTS BACKGROUND =====
+    function createFloatingDocs() {
+      const container = document.getElementById('floatingDocs');
+      const icons = ['📄', '📋', '📑', '📃', '🗞️', '📝'];
+      for (let i = 0; i < 15; i++) {
+        const doc = document.createElement('div');
+        doc.className = 'floating-doc';
+        doc.textContent = icons[Math.floor(Math.random() * icons.length)];
+        doc.style.fontSize = (20 + Math.random() * 30) + 'px';
+        doc.style.left = Math.random() * 100 + '%';
+        doc.style.animationDuration = (15 + Math.random() * 20) + 's';
+        doc.style.animationDelay = Math.random() * 20 + 's';
+        container.appendChild(doc);
+      }
+    }
+    createFloatingDocs();
+
+    // ===== NAVBAR SCROLL =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('nav-scrolled');
+      } else {
+        navbar.classList.remove('nav-scrolled');
+      }
+    });
+
+    // ===== MOBILE MENU =====
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+    mobileMenuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden');
+      mobileMenuBtn.innerHTML = menuOpen 
+        ? '<iconify-icon icon="mdi:close" class="text-2xl"></iconify-icon>' 
+        : '<iconify-icon icon="mdi:menu" class="text-2xl"></iconify-icon>';
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuOpen = false;
+        mobileMenuBtn.innerHTML = '<iconify-icon icon="mdi:menu" class="text-2xl"></iconify-icon>';
+      });
+    });
+
+    // ===== SCROLL REVEAL =====
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ===== SLIDESHOW =====
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slide-dot');
+    let slideInterval;
+
+    function goToSlide(n) {
+      slides[currentSlide].classList.remove('active-slide');
+      dots[currentSlide].classList.remove('bg-blue-500');
+      dots[currentSlide].classList.add('bg-white/30');
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active-slide');
+      dots[currentSlide].classList.add('bg-blue-500');
+      dots[currentSlide].classList.remove('bg-white/30');
+      resetSlideInterval();
+    }
+
+    function changeSlide(dir) {
+      goToSlide(currentSlide + dir);
+    }
+
+    function resetSlideInterval() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(() => changeSlide(1), 5000);
+    }
+    resetSlideInterval();
+
+    // ===== DELIVERY TIMER =====
+    let timerSeconds = 754; // ~12:34
+    function updateTimer() {
+      const min = Math.floor(timerSeconds / 60);
+      const sec = timerSeconds % 60;
+      document.getElementById('timerMin').textContent = String(min).padStart(2, '0');
+      document.getElementById('timerSec').textContent = String(sec).padStart(2, '0');
+      timerSeconds--;
+      if (timerSeconds < 0) timerSeconds = 900;
+    }
+    setInterval(updateTimer, 1000);
+
+    // ===== COUNTER ANIMATION =====
+    const counterEl = document.querySelector('[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = parseInt(entry.target.getAttribute('data-count'));
+          let current = 0;
+          const step = Math.ceil(target / 80);
+          const interval = setInterval(() => {
+            current += step;
+            if (current >= target) {
+              current = target;
+              clearInterval(interval);
+            }
+            entry.target.textContent = current.toLocaleString() + '+';
+          }, 20);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counterObserver.observe(counterEl);
+
+    // ===== FILE UPLOAD =====
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+    const uploadContent = document.getElementById('uploadContent');
+    let uploadedFiles = [];
+
+    uploadZone.addEventListener('click', () => fileInput.click());
+    uploadZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadZone.classList.add('dragover');
+    });
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+    uploadZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+    fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+    function handleFiles(files) {
+      Array.from(files).forEach(file => {
+        if (file.size > 25 * 1024 * 1024) {
+          showToast('File too large: ' + file.name, 'error');
+          return;
+        }
+        uploadedFiles.push(file);
+      });
+      renderFileList();
+      updateOrderSummary();
+    }
+
+    function renderFileList() {
+      if (uploadedFiles.length === 0) {
+        uploadContent.classList.remove('hidden');
+        fileList.classList.add('hidden');
+        return;
+      }
+      uploadContent.classList.add('hidden');
+      fileList.classList.remove('hidden');
+      fileList.innerHTML = uploadedFiles.map((file, i) => `
+        <div class="flex items-center justify-between bg-white/5 rounded-xl px-4 py-3">
+          <div class="flex items-center gap-3">
+            <iconify-icon icon="${getFileIcon(file.name)}" class="text-blue-400 text-xl"></iconify-icon>
+            <div>
+              <div class="text-sm font-medium truncate max-w-[200px] md:max-w-[300px]">${file.name}</div>
+              <div class="text-xs text-blue-200/40">${formatFileSize(file.size)}</div>
+            </div>
+          </div>
+          <button onclick="removeFile(${i})" class="text-red-400 hover:text-red-300 p-1">
+            <iconify-icon icon="mdi:close-circle" class="text-xl"></iconify-icon>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function removeFile(index) {
+      uploadedFiles.splice(index, 1);
+      renderFileList();
+      updateOrderSummary();
+      if (uploadedFiles.length === 0) fileInput.value = '';
+    }
+
+    function getFileIcon(name) {
+      const ext = name.split('.').pop().toLowerCase();
+      const icons = { pdf: 'mdi:file-pdf-box', doc: 'mdi:file-word', docx: 'mdi:file-word', jpg: 'mdi:file-image', jpeg: 'mdi:file-image', png: 'mdi:file-image', txt: 'mdi:file-document' };
+      return icons[ext] || 'mdi:file';
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    // ===== COPIES CONTROL =====
+    function changeCopies(delta) {
+      const input = document.getElementById('copies');
+      let val = parseInt(input.value) + delta;
+      if (val < 1) val = 1;
+      if (val > 100) val = 100;
+      input.value = val;
+      updateOrderSummary();
+    }
+    document.getElementById('copies').addEventListener('change', updateOrderSummary);
+    document.getElementById('printType').addEventListener('change', updateOrderSummary);
+    document.getElementById('binding').addEventListener('change', updateOrderSummary);
+
+    // ===== ORDER SUMMARY & PRICING =====
+    function updateOrderSummary() {
+      const summary = document.getElementById('orderSummary');
+      const content = document.getElementById('summaryContent');
+      const totalEl = document.getElementById('totalPrice');
+
+      if (uploadedFiles.length === 0) {
+        summary.classList.add('hidden');
+        return;
+      }
+      summary.classList.remove('hidden');
+
+      const printType = document.getElementById('printType').value;
+      const copies = parseInt(document.getElementById('copies').value) || 1;
+      const binding = document.getElementById('binding').value;
+      const sides = document.querySelector('input[name="sides"]:checked').value;
+      const delivery = document.querySelector('input[name="delivery"]:checked').value;
+      const extras = Array.from(document.querySelectorAll('.extra-service:checked')).map(c => c.value);
+
+      const pricePerPage = printType === 'color' ? 10 : printType === 'bw' ? 2 : 5;
+      const estimatedPages = uploadedFiles.length * 5; // Assume 5 pages per file
+      const sidesMultiplier = sides === 'double' ? 0.85 : 1;
+      const printCost = Math.round(estimatedPages * pricePerPage * copies * sidesMultiplier);
+      const bindingCost = binding === 'spiral' ? 30 : binding === 'hard' ? 80 : binding === 'staple' ? 5 : 0;
+      const deliveryCost = delivery === 'express' ? 30 : 20;
+      const laminationCost = extras.includes('lamination') ? estimatedPages * 20 * copies : 0;
+      const extrasCost = laminationCost + (extras.includes('stapling') ? 5 : 0) + (extras.includes('hole-punch') ? 10 : 0) + (extras.includes('envelope') ? 15 : 0);
+      const total = printCost + bindingCost + deliveryCost + extrasCost;
+
+      content.innerHTML = `
+        <div class="flex justify-between text-blue-200/60"><span>Print (${estimatedPages} pages × ${copies} copies)</span><span>₹${printCost}</span></div>
+        ${bindingCost ? `<div class="flex justify-between text-blue-200/60"><span>Binding (${binding})</span><span>₹${bindingCost}</span></div>` : ''}
+        <div class="flex justify-between text-blue-200/60"><span>Delivery (${delivery})</span><span>₹${deliveryCost}</span></div>
+        ${extras.length ? `<div class="flex justify-between text-blue-200/60"><span>Extra Services</span><span>₹${extrasCost}</span></div>` : ''}
+      `;
+      totalEl.textContent = '₹' + total;
+    }
+
+    // Listen for changes to update summary
+    document.querySelectorAll('input[name="sides"], input[name="delivery"], .extra-service').forEach(el => {
+      el.addEventListener('change', updateOrderSummary);
+    });
+
+    // ===== FORM SUBMISSION =====
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const address = document.getElementById('custAddress').value.trim();
+
+      if (!name || !phone || !address) {
+        showToast('Please fill in all required fields!', 'error');
+        return;
+      }
+      if (uploadedFiles.length === 0) {
+        showToast('Please upload at least one document!', 'error');
+        return;
+      }
+
+      const printType = document.getElementById('printType').value;
+      const paperSize = document.getElementById('paperSize').value;
+      const copies = document.getElementById('copies').value;
+      const sides = document.querySelector('input[name="sides"]:checked').value;
+      const binding = document.getElementById('binding').value;
+      const delivery = document.querySelector('input[name="delivery"]:checked').value;
+      const instructions = document.getElementById('instructions').value;
+      const extras = Array.from(document.querySelectorAll('.extra-service:checked')).map(c => c.value);
+      const total = document.getElementById('totalPrice').textContent;
+
+      const fileNames = uploadedFiles.map(f => f.name).join(', ');
+
+      const message = `🖨️ *NEW ORDER - Quality Xerox*
+━━━━━━━━━━━━━━━━━━━━
+
+📋 *Customer Details:*
+👤 Name: ${name}
+📱 Phone: ${phone}
+📍 Address: ${address}
+
+📄 *Order Details:*
+📎 Files: ${fileNames}
+🎨 Print Type: ${printType.toUpperCase()}
+📐 Paper Size: ${paperSize.toUpperCase()}
+🔢 Copies: ${copies}
+📋 Sides: ${sides === 'single' ? 'Single Side' : 'Both Sides'}
+📚 Binding: ${binding === 'none' ? 'None' : binding}
+ ${extras.length ? `✨ Extras: ${extras.join(', ')}` : ''}
+
+🚀 *Delivery:* ${delivery === 'express' ? '⚡ Express (30 min)' : '📦 Standard (2-4 hrs)'}
+ ${instructions ? `📝 *Instructions:* ${instructions}` : ''}
+
+💰 *Estimated Total:* ${total}
+
+━━━━━━━━━━━━━━━━━━━━
+_Please confirm the order and total amount. Thank you!_ 🙏`;
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/919763672535?text=${encodedMessage}`;
+
+      // Show success modal
+      document.getElementById('orderModal').classList.add('show');
+
+      // Open WhatsApp
+      setTimeout(() => {
+        window.open(whatsappUrl, '_blank');
+      }, 500);
+    });
+
+    // ===== MODAL =====
+    function closeModal() {
+      document.getElementById('orderModal').classList.remove('show');
+    }
+
+    // ===== FAQ TOGGLE =====
+    function toggleFAQ(btn) {
+      const answer = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-icon');
+      const isHidden = answer.classList.contains('hidden');
+      
+      // Close all
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+
+      if (isHidden) {
+        answer.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // ===== TOAST NOTIFICATIONS =====
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      const bgColor = type === 'error' ? 'bg-red-500' : 'bg-green-500';
+      const icon = type === 'error' ? 'mdi:alert-circle' : 'mdi:check-circle';
+      
+      toast.className = `toast flex items-center gap-3 ${bgColor} text-white px-5 py-3 rounded-xl shadow-xl text-sm font-medium max-w-sm`;
+      toast.innerHTML = `<iconify-icon icon="${icon}" class="text-xl flex-shrink-0"></iconify-icon><span>${message}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add('toast-out');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ===== INITIALIZE =====
+    document.getElementById('orderModal').classList.remove('show');
+  </script>
+</body>
+</html>
